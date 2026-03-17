@@ -1,0 +1,39 @@
+databases:
+  - name: agentmarket-db
+    databaseName: agentmarket
+    user: agentmarket
+    plan: free          # upgrade to starter ($7/mo) for persistent storage
+
+services:
+  - type: web
+    name: agentmarket-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run migrate && npm start
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: agentmarket-db
+          property: connectionString
+      # Set these manually in Render dashboard:
+      - key: CELO_RPC_URL
+        sync: false
+      - key: CONTRACT_ADDRESS
+        sync: false
+      - key: PLATFORM_WALLET
+        sync: false
+      - key: ERC8004_IDENTITY_REGISTRY
+        sync: false
+      - key: ERC8004_REPUTATION_REGISTRY
+        sync: false
+      - key: PINATA_JWT
+        sync: false
+      - key: COMMISSION_BPS
+        value: "2000"
+      - key: CORS_ORIGIN
+        sync: false     # set to your frontend URL e.g. https://agentmarket.vercel.app

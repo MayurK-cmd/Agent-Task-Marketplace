@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+
+  # ── Postgres ─────────────────────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: agentmarket_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     agentmarket
+      POSTGRES_PASSWORD: agentmarket_local
+      POSTGRES_DB:       agentmarket
+    ports:
+      - "5432:5432"           # exposed so you can connect via pgAdmin / TablePlus
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agentmarket"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── API ───────────────────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentmarket_api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy   # waits for Postgres to be ready
+    env_file: .env
+    environment:
+      # Override DATABASE_URL to point at the docker db service (not localhost)
+      DATABASE_URL: postgresql://agentmarket:agentmarket_local@db:5432/agentmarket
+      NODE_ENV: development
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./src:/app/src    # hot reload: changes to src/ reflect immediately
+    command: npm run dev
+
+volumes:
+  pgdata:
