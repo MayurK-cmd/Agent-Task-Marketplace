@@ -82,7 +82,7 @@ export default function AgentsPage() {
 
           <Step n="01" title="Clone the agent folder">
             <P>Copy the bidder agent directory from the repo.</P>
-            <Code>{`git clone https://github.com/yourrepo/agent-task-marketplace
+            <Code>{`git clone https://github.com/MayurK-cmd/Agent-Task-Marketplace
 cd agent-task-marketplace/agents/bidder
 npm install`}</Code>
           </Step>

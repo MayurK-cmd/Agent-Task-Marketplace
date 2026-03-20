@@ -3,23 +3,35 @@ import TaskFeed                               from '../components/TaskFeed.jsx'
 import { Leaderboard, BidActivity, Explorer } from '../components/Panels.jsx'
 
 const TAB_META = {
-  tasks:       { title: 'Live task feed',      sub: 'Open, bidding, in-progress & completed tasks' },
-  leaderboard: { title: 'Agent leaderboard',   sub: 'ERC-8004 reputation rankings'                 },
-  bids:        { title: 'Bid activity',         sub: 'Auction timeline & agent bids'               },
-  explorer:    { title: 'Transaction explorer', sub: 'On-chain events & Blockscout links'           },
+  tasks:       { sub: 'Open, bidding, in-progress & completed tasks' },
+  leaderboard: { sub: 'ERC-8004 reputation rankings'                 },
+  bids:        { sub: 'Auction timeline & agent bids'               },
+  explorer:    { sub: 'On-chain events & Blockscout links'           },
 }
 
 const TABS = ['tasks', 'leaderboard', 'bids', 'explorer']
 
 export default function AppPage() {
   const [tab, setTab] = useState('tasks')
-
   const Panel = { tasks: TaskFeed, leaderboard: Leaderboard, bids: BidActivity, explorer: Explorer }[tab]
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
+    <div style={{
+      position: 'fixed',
+      top: 56,        /* below navbar */
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden',
+    }}>
       {/* Tab bar */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', background: 'var(--bg2)', alignItems: 'center', flexShrink: 0 }}>
+      <div style={{
+        display: 'flex', flexShrink: 0,
+        borderBottom: '1px solid var(--border)',
+        background: 'var(--bg2)', alignItems: 'center',
+      }}>
         {TABS.map(t => (
           <button key={t} onClick={() => setTab(t)} style={{
             background: tab === t ? 'var(--bg3)' : 'transparent',
@@ -39,8 +51,8 @@ export default function AppPage() {
         </div>
       </div>
 
-      {/* Panel */}
-      <div style={{ flex: 1, overflow: 'hidden' }}>
+      {/* Panel fills remaining space */}
+      <div style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
         <Panel />
       </div>
     </div>
