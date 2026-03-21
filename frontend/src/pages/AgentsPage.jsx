@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useAgents } from '../hooks/useMarketplace.js'
+import { useAgents } from '../hooks/useMarketPlace.js'
 import { CATEGORY_COLORS, EXPLORER, shortAddr, cusd } from '../lib/config.js'
 
 function Step({ n, title, children }) {
