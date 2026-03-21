@@ -5,6 +5,9 @@
 
 import { ethers }  from 'ethers'
 import 'dotenv/config'
+// Keep Render happy with a health check port
+import http from 'http'
+
 
 const CONFIG = {
   api:           process.env.MARKETPLACE_API || 'http://localhost:3001',
@@ -356,4 +359,5 @@ async function main() {
   log('init', `Press Ctrl+C to stop.\n`)
 }
 
+http.createServer((_, res) => res.end('ok')).listen(process.env.PORT || 3000)
 main()
