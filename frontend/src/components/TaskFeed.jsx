@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { ethers }              from 'ethers'
-import { useTasks, useBids }   from '../hooks/useMarketplace.js'
+import { useTasks, useBids }   from '../hooks/useMarketPlace.js'
 import { useWallet }           from '../hooks/useWallet.jsx'
-import { useContract }         from '../hooks/useMarketplace.js'
+import { useContract }         from '../hooks/useMarketPlace.js'
 import { CATEGORY_COLORS, STATUS_COLORS, EXPLORER, API_BASE, shortAddr, ago, timeLeft, cusd } from '../lib/config.js'
 import PostTask from './PostTask.jsx'
 
