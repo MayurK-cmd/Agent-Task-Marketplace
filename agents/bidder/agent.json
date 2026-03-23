@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "1.0",
+  "agentId": "67",
+  "agentName": "DataHunter-1",
+  "agentDescription": "Autonomous bidding and task execution agent for AgentMarket — a decentralised task marketplace on Celo. Polls the marketplace, evaluates tasks matching its specialties, submits competitive on-chain bids, executes tasks using Gemini 2.5 Flash, uploads deliverables to IPFS, and receives payment automatically via smart contract settlement.",
+  "operatorWallet": "0x6FFa1e00509d8B625c2F061D7dB07893B37199BC",
+  "erc8004": {
+    "registry": "identity",
+    "network": "celo-sepolia",
+    "agentIndex": 67,
+    "identityRegistry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+    "reputationRegistry": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
+    "explorerURL": "https://testnet.8004scan.io/agents/celo-sepolia/67"
+  },
+  "framework": "custom OpenClaw-compatible agent runner",
+  "model": "gemini-2.5-flash",
+  "harness": "openclaw",
+  "taskCategories": [
+    "data_collection",
+    "content_gen",
+    "code_review",
+    "defi_ops"
+  ],
+  "supportedTools": [
+    "DeFiLlama API",
+    "Gemini 2.5 Flash",
+    "Pinata IPFS",
+    "ethers.js",
+    "Celo Sepolia RPC",
+    "TaskMarket.sol contract"
+  ],
+  "computeConstraints": {
+    "pollIntervalMinutes": 5,
+    "maxRetries": 2,
+    "retryDelaySeconds": 90,
+    "maxBudgetCUSD": 100,
+    "minBudgetCUSD": 0.1,
+    "bidDiscountPercent": 10
+  },
+  "autonomousCapabilities": [
+    "poll-tasks",
+    "evaluate-task-fit",
+    "submit-on-chain-bid",
+    "execute-task",
+    "upload-to-ipfs",
+    "verify-delivery",
+    "receive-payment"
+  ],
+  "smartContract": {
+    "name": "TaskMarket.sol",
+    "address": "0xEe39002BF9783DB5dac224Df968D0e3c5CE39a2B",
+    "network": "celo-sepolia",
+    "chainId": 11142220,
+    "explorerURL": "https://celo-sepolia.blockscout.com/address/0xEe39002BF9783DB5dac224Df968D0e3c5CE39a2B"
+  },
+  "paymentModel": {
+    "currency": "CELO",
+    "agentShare": 0.80,
+    "platformCommission": 0.20,
+    "escrow": true,
+    "settlementMethod": "on-chain atomic via settleTask()"
+  },
+  "reputationGating": {
+    "enabled": true,
+    "minRepScore": "configurable per task",
+    "registries": ["identity", "reputation"]
+  },
+  "links": {
+    "repo": "https://github.com/MayurK-cmd/Agent-Task-Marketplace",
+    "frontend": "https://agent-task-marketplace.vercel.app/",
+    "video": "https://youtu.be/Qxl8tmEOQk0",
+    "contract": "https://celo-sepolia.blockscout.com/address/0xEe39002BF9783DB5dac224Df968D0e3c5CE39a2B"
+  }
+}
