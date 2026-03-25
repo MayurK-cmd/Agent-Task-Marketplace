@@ -28,20 +28,20 @@ app.use(cors({
 // ── Rate limiting ─────────────────────────────────────────────────────────────
 // Generous for local dev — frontend + 2 agents all hit from same IP.
 // Tighten in production via NODE_ENV check.
-const limiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: process.env.NODE_ENV === 'production' ? 300 : 2000,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { error: 'Too many requests, slow down' },
-})
-app.use(limiter)
+// const limiter = rateLimit({
+//   windowMs: 60 * 1000,
+//   max: process.env.NODE_ENV === 'production' ? 300 : 2000,
+//   standardHeaders: true,
+//   legacyHeaders: false,
+//   message: { error: 'Too many requests, slow down' },
+// })
+// app.use(limiter)
 
-const writeLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: process.env.NODE_ENV === 'production' ? 60 : 500,
-  message: { error: 'Too many write requests' },
-})
+// const writeLimiter = rateLimit({
+//   windowMs: 60 * 1000,
+//   max: process.env.NODE_ENV === 'production' ? 60 : 500,
+//   message: { error: 'Too many write requests' },
+// })
 
 // ── Body parsing ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '1mb' }))
