@@ -63,9 +63,9 @@ app.get('/health', async (req, res) => {
 
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.use('/tasks',   tasksRouter)
-app.use('/bids',    writeLimiter, bidsRouter)
+app.use('/bids',     bidsRouter)
 app.use('/agents',  agentsRouter)
-app.use('/verify',  writeLimiter, verifyRouter)
+app.use('/verify',   verifyRouter)
 
 // ── 404 ───────────────────────────────────────────────────────────────────────
 app.use((req, res) => {
